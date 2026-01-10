@@ -26,10 +26,10 @@
         <td class="px-6 py-4">{{ item.estatus }}</td>
 
         <td class="py-4 flex justify-center text-lg text-gray-500 gap-3">
-          <button>
+          <button (click)="editarCuenta(item)">
             <i class="fa-solid fa-pen-to-square transition-transform hover:scale-125 hover:text-purple-600"></i>
           </button>
-          <button>
+          <button (click)="eliminarCuenta(item)">
             <i class="fa-solid fa-square-xmark transition-transform hover:scale-125 hover:text-red-600"></i>
           </button>
         </td>
@@ -46,3 +46,145 @@
     (pageChange)="page = $event">
   </pagination-controls>
 </div>
+
+
+
+
+
+<app-modal
+  [open]="showModal"
+  title="Modificar cuenta"
+  (close)="showModal = false">
+    <div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+
+    <!-- Titular (ya acomodado) -->
+    <div class="flex flex-col">
+      <div>Titular</div>
+      <div>
+        <input
+          class="w-full border border-1 bg-gray-100"
+          type="text"
+          formControlName="titular"
+          placeholder="Nombre del titular"
+        />
+      </div>
+      <div>
+        <small class="text-red-800"
+          *ngIf="form.get('titular')?.invalid && form.get('titular')?.touched">
+          Titular requerido
+        </small>
+      </div>
+    </div>
+
+    <!-- Cuenta (ya acomodado) -->
+    <div class="flex">
+
+        <div class="flex flex-col w-[75%]">
+            <div>Cuenta</div>
+                <div>
+                    <input
+                    class="w-full border border-1 bg-gray-100"
+                    type="text"
+                    formControlName="cuenta"
+                    placeholder="Número de cuenta"
+                    />
+                </div>
+            <div>
+                <small class="text-red-800"
+                *ngIf="form.get('cuenta')?.invalid && form.get('cuenta')?.touched">
+                Cuenta inválida
+                </small>
+            </div>
+        </div>
+
+        <div class="ml-2 flex flex-col flex-1">
+            <div>Saldo</div>
+                <div>
+                    <input
+                    class="w-full border border-1 bg-gray-100"
+                    type="number"
+                    formControlName="saldo"
+                    placeholder="Saldo inicial"
+                    />
+                </div>
+                <div>
+                <small class="text-red-800"
+                    *ngIf="form.get('saldo')?.invalid && form.get('saldo')?.touched">
+                    Saldo requerido
+                </small>
+        </div>
+    </div>
+
+  
+    </div>
+
+    <!-- Saldo -->
+    
+    <!-- Tipo de cuenta -->
+    <div class="flex flex-col">
+      <div>Tipo de cuenta</div>
+      <div>
+        <select
+          class="w-full border border-1 bg-gray-100"
+          formControlName="tipoCuenta">
+          <option value="">Selecciona una opción</option>
+
+           <option value="Ahorro">Ahorro</option>
+           <option value="Debito">Debito</option>
+            <option value="Credito">Credito</option>
+            <option value="Nomina">Nomina</option>
+            <option value="Empresarial">Empresarial</option>
+        
+        </select>
+      </div>
+      <div>
+        <small class="text-red-800"
+          *ngIf="form.get('tipoCuenta')?.invalid && form.get('tipoCuenta')?.touched">
+          Tipo de cuenta requerido
+        </small>
+      </div>
+    </div>
+
+    <!-- Estatus -->
+    <div class="flex flex-col">
+      <div>Estatus</div>
+      <div>
+        <select
+          class="w-full border border-1 bg-gray-100"
+          formControlName="estatus">
+          <option value="">Selecciona una opción</option>
+          <option value="Activa">Activa</option>
+          <option value="Inactiva">Inactiva</option>
+        </select>
+      </div>
+      <div>
+        <small class="text-red-800"
+          *ngIf="form.get('estatus')?.invalid && form.get('estatus')?.touched">
+          Estatus requerido
+        </small>
+      </div>
+    </div>
+
+
+  
+    <!-- Botones -->
+    <div class="flex gap-2 justify-end gap-2 p-4 border-t">
+
+
+      <button class="bg-purple-600 text-white px-2 hover:bg-purple-800" type="submit" >
+        Agregar cuenta
+      </button>
+    </div>
+
+  </form>
+
+
+
+        
+    </div>
+
+</app-modal>
+
+

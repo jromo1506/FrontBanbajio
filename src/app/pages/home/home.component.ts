@@ -21,10 +21,10 @@ export class HomeComponent implements OnInit {
 
      this.form = this.fb.group({
       titular: ['', Validators.required],
-      cuenta: ['', [Validators.required, Validators.max(18)]],
+      cuenta: ['', [Validators.required]],
       saldo: [0, [Validators.required ]],
-      tipoCuenta:['', [Validators.required, Validators.email]],
-      estatus:['', [Validators.required, Validators.email]]
+      tipoCuenta:['', [Validators.required]],
+      estatus:['', [Validators.required]]
     });
   }
 
@@ -33,8 +33,11 @@ export class HomeComponent implements OnInit {
   }
 
   agregarCuenta(){
-    this.swalAlert.confirm("a","aaa");
+     
   }
+
+
+ 
 
   submit() {
     if (this.form.valid) {
