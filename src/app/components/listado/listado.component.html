@@ -1,0 +1,48 @@
+<div class="w-100 relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+  <table class="w-full text-sm text-left rtl:text-right text-body">
+    <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+      <tr>
+        <th class="px-6 py-3 font-medium">Titular</th>
+        <th class="px-6 py-3 font-medium">Cuenta</th>
+        <th class="px-6 py-3 font-medium">Saldo</th>
+        <th class="px-6 py-3 font-medium">Tipo cuenta</th>
+        <th class="px-6 py-3 font-medium">Estatus</th>
+        <th class="px-6 py-3 font-medium"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr
+        *ngFor="let item of cuentas | paginate: { itemsPerPage: pageSize, currentPage: page }"
+        class="bg-neutral-primary border-b border-default"
+      >
+        <th class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+          {{ item.titular }}
+        </th>
+
+        <td class="px-6 py-4">{{ item.cuenta }}</td>
+        <td class="px-6 py-4">${{ item.saldo }}</td>
+        <td class="px-6 py-4">{{ item.tipo }}</td>
+        <td class="px-6 py-4">{{ item.estatus }}</td>
+
+        <td class="py-4 flex justify-center text-lg text-gray-500 gap-3">
+          <button>
+            <i class="fa-solid fa-pen-to-square transition-transform hover:scale-125 hover:text-purple-600"></i>
+          </button>
+          <button>
+            <i class="fa-solid fa-square-xmark transition-transform hover:scale-125 hover:text-red-600"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Paginación -->
+<div class="flex justify-end mt-4">
+  <pagination-controls
+    previousLabel="Anterior"
+    nextLabel="Siguiente"
+    (pageChange)="page = $event">
+  </pagination-controls>
+</div>

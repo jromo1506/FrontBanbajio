@@ -1,0 +1,193 @@
+<app-loader [visible]="loading"></app-loader>
+
+
+
+
+<div class="w-[80vw]">
+    <div class="border-1 border border-gray-300  bg-gray-200 my-5 flex justify-between items-center p-4">
+      <div class="flex flex-1  text-sm">
+            <div class="flex items-center justify-between">
+                    <div>Cuenta</div>
+                    <div class="ml-3">
+                        <input class="w-[10rem]" type="text">
+                    </div>
+                </div>
+
+            <div class="flex items-center ml-5">
+                     <div>Tipo de cuenta</div>
+                     <div class="ml-3">
+                        <select class="w-[30rem] ">
+                            <option>Ahorro</option>
+                            <option>Debito</option>
+                            <option>Credito</option>
+                             <option>Nomina</option>
+                              <option>Empresarial</option>
+                        </select>
+                     </div>
+                   
+                </div>
+
+              
+        </div>
+
+
+        <div class=" ">
+            <button class="bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1.5 text-sm w-[6rem]"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+        </div>
+        
+    </div>
+    <app-listado></app-listado>
+    <div class="flex justify-end">
+        <div class="  my-1 p-4">
+
+            <button (click)="agregarCuenta()" class="bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1.5 text-sm w-[10rem]">
+                <i class="fa-solid fa-plus"></i> 
+                Agregar cuenta
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<button (click)="showModal = true">
+  Abrir modal
+</button>
+
+<app-modal
+  [open]="showModal"
+  title="Detalle de cuenta"
+  (close)="showModal = false">
+    <div>
+
+
+
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+
+    <!-- Titular (ya acomodado) -->
+    <div class="flex flex-col">
+      <div>Titular</div>
+      <div>
+        <input
+          class="w-full border border-1 bg-gray-100"
+          type="text"
+          formControlName="titular"
+          placeholder="Nombre del titular"
+        />
+      </div>
+      <div>
+        <small class="text-red-800"
+          *ngIf="form.get('titular')?.invalid && form.get('titular')?.touched">
+          Titular requerido
+        </small>
+      </div>
+    </div>
+
+    <!-- Cuenta (ya acomodado) -->
+    <div class="flex">
+
+        <div class="flex flex-col w-[75%]">
+            <div>Cuenta</div>
+                <div>
+                    <input
+                    class="w-full border border-1 bg-gray-100"
+                    type="text"
+                    formControlName="cuenta"
+                    placeholder="Número de cuenta"
+                    />
+                </div>
+            <div>
+                <small class="text-red-800"
+                *ngIf="form.get('cuenta')?.invalid && form.get('cuenta')?.touched">
+                Cuenta inválida
+                </small>
+            </div>
+        </div>
+
+        <div class="ml-2 flex flex-col flex-1">
+            <div>Saldo</div>
+                <div>
+                    <input
+                    class="w-full border border-1 bg-gray-100"
+                    type="number"
+                    formControlName="saldo"
+                    placeholder="Saldo inicial"
+                    />
+                </div>
+                <div>
+                <small class="text-red-800"
+                    *ngIf="form.get('saldo')?.invalid && form.get('saldo')?.touched">
+                    Saldo requerido
+                </small>
+        </div>
+    </div>
+
+  
+    </div>
+
+    <!-- Saldo -->
+    
+    <!-- Tipo de cuenta -->
+    <div class="flex flex-col">
+      <div>Tipo de cuenta</div>
+      <div>
+        <select
+          class="w-full border border-1 bg-gray-100"
+          formControlName="tipoCuenta">
+          <option value="">Selecciona una opción</option>
+
+           <option value="AHORRO">Ahorro</option>
+           <option value="DEBITO">Debito</option>
+            <option value="CREDITO">Credito</option>
+            <option value="NOMINA">Nomina</option>
+            <option value="EMPRESARIAL">Empresarial</option>
+        
+        </select>
+      </div>
+      <div>
+        <small class="text-red-800"
+          *ngIf="form.get('tipoCuenta')?.invalid && form.get('tipoCuenta')?.touched">
+          Tipo de cuenta requerido
+        </small>
+      </div>
+    </div>
+
+    <!-- Estatus -->
+    <div class="flex flex-col">
+      <div>Estatus</div>
+      <div>
+        <select
+          class="w-full border border-1 bg-gray-100"
+          formControlName="estatus">
+          <option value="">Selecciona una opción</option>
+          <option value="ACTIVA">Activa</option>
+          <option value="INACTIVA">Inactiva</option>
+        </select>
+      </div>
+      <div>
+        <small class="text-red-800"
+          *ngIf="form.get('estatus')?.invalid && form.get('estatus')?.touched">
+          Estatus requerido
+        </small>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex gap-2 justify-end pt-2">
+      <button type="submit" [disabled]="form.invalid">
+        Guardar
+      </button>
+
+      <button type="button" (click)="agregarCuenta()">
+        Agregar cuenta
+      </button>
+    </div>
+
+  </form>
+
+
+
+        
+    </div>
+
+</app-modal>

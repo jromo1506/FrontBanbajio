@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    transition: all ease .2s;
+}
+
+input, select, button {
+    border: 1px;
+    border-radius: 2px;
+    transition: all ease .3s;
+    padding: 5px;
+
+}
+
+
+input:focus{
+   outline: none;   /* ← quita el borde azul del navegador */
+    border: none; 
+}
+
+
+
+.ngx-pagination .current {
+  background: #793bb3 !important; /* purple-600 */
+  color: white;
+  border-radius: 6px;
+}
