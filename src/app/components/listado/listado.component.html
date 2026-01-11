@@ -2,10 +2,10 @@
   <table class="w-full text-sm text-left rtl:text-right text-body">
     <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
       <tr>
-        <th class="px-6 py-3 font-medium">Titular</th>
-        <th class="px-6 py-3 font-medium">Cuenta</th>
-        <th class="px-6 py-3 font-medium">Saldo</th>
-        <th class="px-6 py-3 font-medium">Tipo cuenta</th>
+        <th class="px-6 py-3 font-medium">Producto</th>
+        <th class="px-6 py-3 font-medium">SKU</th>
+        <th class="px-6 py-3 font-medium">Precio</th>
+        <th class="px-6 py-3 font-medium">Tipo</th>
         <th class="px-6 py-3 font-medium">Estatus</th>
         <th class="px-6 py-3 font-medium"></th>
       </tr>
@@ -13,23 +13,23 @@
 
     <tbody>
       <tr
-        *ngFor="let item of cuentas | paginate: { itemsPerPage: pageSize, currentPage: page }"
+        *ngFor="let item of productos | paginate: { itemsPerPage: pageSize, currentPage: page }"
         class="bg-neutral-primary border-b border-default"
       >
         <th class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-          {{ item.titular }}
+          {{ item.nombre }}
         </th>
 
-        <td class="px-6 py-4">{{ item.cuenta }}</td>
-        <td class="px-6 py-4">${{ item.saldo }}</td>
+        <td class="px-6 py-4">{{ item.clave }}</td>
+        <td class="px-6 py-4">${{ item.precio }}</td>
         <td class="px-6 py-4">{{ item.tipo }}</td>
         <td class="px-6 py-4">{{ item.estatus }}</td>
 
         <td class="py-4 flex justify-center text-lg text-gray-500 gap-3">
-          <button (click)="editarCuenta(item)">
+          <button (click)="editarProducto(item)">
             <i class="fa-solid fa-pen-to-square transition-transform hover:scale-125 hover:text-purple-600"></i>
           </button>
-          <button (click)="eliminarCuenta(item)">
+          <button (click)="eliminarProducto(item)">
             <i class="fa-solid fa-square-xmark transition-transform hover:scale-125 hover:text-red-600"></i>
           </button>
         </td>
@@ -47,144 +47,120 @@
   </pagination-controls>
 </div>
 
-
-
-
-
 <app-modal
   [open]="showModal"
-  title="Modificar cuenta"
+  title="Modificar producto"
   (close)="showModal = false">
-    <div>
+  <div>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
 
-  <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
-
-    <!-- Titular (ya acomodado) -->
-    <div class="flex flex-col">
-      <div>Titular</div>
-      <div>
-        <input
-          class="w-full border border-1 bg-gray-100"
-          type="text"
-          formControlName="titular"
-          placeholder="Nombre del titular"
-        />
-      </div>
-      <div>
-        <small class="text-red-800"
-          *ngIf="form.get('titular')?.invalid && form.get('titular')?.touched">
-          Titular requerido
-        </small>
-      </div>
-    </div>
-
-    <!-- Cuenta (ya acomodado) -->
-    <div class="flex">
-
-        <div class="flex flex-col w-[75%]">
-            <div>Cuenta</div>
-                <div>
-                    <input
-                    class="w-full border border-1 bg-gray-100"
-                    type="text"
-                    formControlName="cuenta"
-                    placeholder="Número de cuenta"
-                    />
-                </div>
-            <div>
-                <small class="text-red-800"
-                *ngIf="form.get('cuenta')?.invalid && form.get('cuenta')?.touched">
-                Cuenta inválida
-                </small>
-            </div>
+      <!-- Clave -->
+      <div class="flex flex-col">
+        <div>SKU</div>
+        <div>
+          <input
+            class="w-full border border-1 bg-gray-100"
+            type="text"
+            formControlName="clave"
+            placeholder="Clave del producto"
+          />
         </div>
-
-        <div class="ml-2 flex flex-col flex-1">
-            <div>Saldo</div>
-                <div>
-                    <input
-                    class="w-full border border-1 bg-gray-100"
-                    type="number"
-                    formControlName="saldo"
-                    placeholder="Saldo inicial"
-                    />
-                </div>
-                <div>
-                <small class="text-red-800"
-                    *ngIf="form.get('saldo')?.invalid && form.get('saldo')?.touched">
-                    Saldo requerido
-                </small>
+        <div>
+          <small class="text-red-800"
+            *ngIf="form.get('clave')?.invalid && form.get('clave')?.touched">
+            Clave requerida
+          </small>
         </div>
-    </div>
-
-  
-    </div>
-
-    <!-- Saldo -->
-    
-    <!-- Tipo de cuenta -->
-    <div class="flex flex-col">
-      <div>Tipo de cuenta</div>
-      <div>
-        <select
-          class="w-full border border-1 bg-gray-100"
-          formControlName="tipoCuenta">
-          <option value="">Selecciona una opción</option>
-
-           <option value="Ahorro">Ahorro</option>
-           <option value="Debito">Debito</option>
-            <option value="Credito">Credito</option>
-            <option value="Nomina">Nomina</option>
-            <option value="Empresarial">Empresarial</option>
-        
-        </select>
       </div>
-      <div>
-        <small class="text-red-800"
-          *ngIf="form.get('tipoCuenta')?.invalid && form.get('tipoCuenta')?.touched">
-          Tipo de cuenta requerido
-        </small>
+
+      <!-- Nombre -->
+      <div class="flex flex-col">
+        <div>Producto</div>
+        <div>
+          <input
+            class="w-full border border-1 bg-gray-100"
+            type="text"
+            formControlName="nombre"
+            placeholder="Nombre del producto"
+          />
+        </div>
+        <div>
+          <small class="text-red-800"
+            *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+            Nombre requerido
+          </small>
+        </div>
       </div>
-    </div>
 
-    <!-- Estatus -->
-    <div class="flex flex-col">
-      <div>Estatus</div>
-      <div>
-        <select
-          class="w-full border border-1 bg-gray-100"
-          formControlName="estatus">
-          <option value="">Selecciona una opción</option>
-          <option value="Activa">Activa</option>
-          <option value="Inactiva">Inactiva</option>
-        </select>
+      <!-- Precio -->
+      <div class="flex flex-col">
+        <div>Precio</div>
+        <div>
+          <input
+            class="w-full border border-1 bg-gray-100"
+            type="number"
+            formControlName="precio"
+            placeholder="Precio"
+          />
+        </div>
+        <div>
+          <small class="text-red-800"
+            *ngIf="form.get('precio')?.invalid && form.get('precio')?.touched">
+            Precio requerido
+          </small>
+        </div>
       </div>
-      <div>
-        <small class="text-red-800"
-          *ngIf="form.get('estatus')?.invalid && form.get('estatus')?.touched">
-          Estatus requerido
-        </small>
+
+      <!-- Tipo -->
+      <div class="flex flex-col">
+        <div>Tipo</div>
+        <div>
+          <select
+            class="w-full border border-1 bg-gray-100"
+            formControlName="tipo">
+            <option value="">Selecciona una opción</option>
+            <option value="Electrónico">Electrónico</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Alimentos">Alimentos</option>
+            <option value="Deporte">Deporte</option>
+          </select>
+        </div>
+        <div>
+          <small class="text-red-800"
+            *ngIf="form.get('tipo')?.invalid && form.get('tipo')?.touched">
+            Tipo requerido
+          </small>
+        </div>
       </div>
-    </div>
 
+      <!-- Estatus -->
+      <div class="flex flex-col">
+        <div>Estatus</div>
+        <div>
+          <select
+            class="w-full border border-1 bg-gray-100"
+            formControlName="estatus">
+            <option value="">Selecciona una opción</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </div>
+        <div>
+          <small class="text-red-800"
+            *ngIf="form.get('estatus')?.invalid && form.get('estatus')?.touched">
+            Estatus requerido
+          </small>
+        </div>
+      </div>
 
-  
-    <!-- Botones -->
-    <div class="flex gap-2 justify-end gap-2 p-4 border-t">
+      <!-- Botones -->
+      <div class="flex justify-end gap-2 p-4 border-t">
+        <button class="bg-purple-600 text-white px-2 hover:bg-purple-800" type="submit">
+          Guardar producto
+        </button>
+      </div>
 
-
-      <button class="bg-purple-600 text-white px-2 hover:bg-purple-800" type="submit" >
-        Agregar cuenta
-      </button>
-    </div>
-
-  </form>
-
-
-
-        
-    </div>
-
+    </form>
+  </div>
 </app-modal>
-
-

@@ -15,34 +15,36 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent implements OnInit {
   loading = false;
   showModal = false;
-   form: FormGroup;
+  form: FormGroup;
 
-  constructor(private swalAlert:SwalAlertService ,private fb: FormBuilder) {
+  productos: any[] = []; // lista de productos que se pueden agregar
 
-     this.form = this.fb.group({
-      titular: ['', Validators.required],
-      cuenta: ['', [Validators.required]],
-      saldo: [0, [Validators.required ]],
-      tipoCuenta:['', [Validators.required]],
-      estatus:['', [Validators.required]]
+  constructor(private swalAlert: SwalAlertService, private fb: FormBuilder) {
+    this.form = this.fb.group({
+      clave: ['', Validators.required],
+      nombre: ['', Validators.required],
+      precio: [0, [Validators.required]],
+      tipo: ['', Validators.required],
+      estatus: ['', Validators.required]
     });
   }
 
-  ngOnInit() {
-   
+  ngOnInit() {}
+
+  agregarProducto() {
+    if (this.form.valid) {
+      this.productos.push(this.form.value); // agrega el producto al arreglo
+      this.form.reset(); // limpia el formulario
+      this.showModal = false;
+      this.swalAlert.success("Producto agregado", "El producto se ha agregado correctamente");
+    } else {
+      this.form.markAllAsTouched(); // muestra errores si hay campos inválidos
+    }
   }
-
-  agregarCuenta(){
-     
-  }
-
-
- 
 
   submit() {
     if (this.form.valid) {
       console.log(this.form.value);
     }
   }
-
 }
