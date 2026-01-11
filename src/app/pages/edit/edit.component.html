@@ -2,67 +2,186 @@
     <h1 class="text-xl font-semibold">Configuración</h1>
     </div>
 
-    <div class=" border-gray-300 bg-gray-200 my-5 rounded-md">
+   <div class="flex border-gray-300 bg-gray-200 my-5 rounded-md h-[14rem]">
+
+  <div class="w-[30%] border-gray-300 bg-gray-200 rounded-md">
+    <h1 class="pt-2 px-2">Añadir Proveedor</h1>
+
+    <form
+      [formGroup]="proveedorForm"
+      (ngSubmit)="confirmarProv()"
+      class="flex justify-between"
+    >
+      <div class="flex flex-col p-2 w-full">
+
+        <div class="flex flex-col">
+          <div class="my-1 flex">
+            <input
+              class="w-full p-2 border border-gray-400 rounded mr-2"
+              type="text"
+              placeholder="Nombre del proveedor"
+              formControlName="nombre"
+            >
+
+            <button
+              type="submit"
+              class="flex w-[10rem] items-center justify-center bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1 py-2 text-sm"
+            >
+              Confirmar
+            </button>
+          </div>
+
+          <div class="my-1">
+            <textarea
+              class="w-full p-2 border border-gray-400 rounded resize-none"
+              rows="4"
+              placeholder="Descripción"
+              formControlName="descripcion"
+            ></textarea>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+
+
+
+     <div class="p-2 flex-1 border-l border-1 border-gray-300    ">
         <div >
-            <h1 class="pt-2 px-2">Añadir proveedor</h1>
+            <h1 class="pt-2 ">Lista de proveedores</h1>
         </div>
-        <div class="flex justify-between">
-            <div class="flex flex-col flex-1 p-2">
-            
-
-                <div class="flex flex-col">
-                <div class="my-1">
-                    <input class="w-full p-2 border border-gray-400 rounded" type="text">
+        <div class="flex flex-col overflow-y-scroll max-h-[11rem]">
+                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
                 </div>
-                <div class="my-1">
-                    <textarea class="w-full p-2 border border-gray-400 rounded" rows="4"></textarea>
+                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
                 </div>
+                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
                 </div>
-            </div>
-
-            <div class="flex flex-col w-[10%] p-2">
-                <button class="flex items-center justify-center bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1 my-.5  py-2 text-sm">
-                Proveedores
-                </button>
-                <button class="flex flex-1  justify-center items-center my-1 bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1.5 text-sm">
-                Añadir
-                </button>
-            </div>
-
+                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
+                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
+                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
+                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
+                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
+                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
         </div>
-    
-    </div>
+      
 
-     <div class=" border-gray-300 bg-gray-200 my-5 rounded-md">
+     </div>
+</div>
+     
+
+
+
+
+
+
+   <div class="flex border-gray-300 bg-gray-200 my-5 rounded-md h-[14rem]">
+
+  <div class="w-[30%] border-gray-300 bg-gray-200 rounded-md">
+    <h1 class="pt-2 px-2">Añadir Categoria</h1>
+
+    <form
+      [formGroup]="proveedorForm"
+      (ngSubmit)="confirmarCateg()"
+      class="flex justify-between"
+    >
+      <div class="flex flex-col p-2 w-full">
+
+        <div class="flex flex-col">
+          <div class="my-1 flex">
+            <input
+              class="w-full p-2 border border-gray-400 rounded mr-2"
+              type="text"
+              placeholder="Nombre de categoria"
+              formControlName="nombre"
+            >
+
+            <button
+              type="submit"
+              class="flex w-[10rem] items-center justify-center bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1 py-2 text-sm"
+            >
+              Confirmar
+            </button>
+          </div>
+
+          <div class="my-1">
+            <textarea
+              class="w-full p-2 border border-gray-400 rounded resize-none"
+              rows="4"
+              placeholder="Descripción"
+              formControlName="descripcion"
+            ></textarea>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+
+
+
+     <div class="p-2 flex-1 border-l border-1 border-gray-300    ">
         <div >
-            <h1 class="pt-2 px-2">Añadir tipo de Producto</h1>
+            <h1 class="pt-2 ">Categoria de proveedores</h1>
         </div>
-        <div class="flex justify-between">
-            <div class="flex flex-col flex-1 p-2">
-            
-
-                <div class="flex flex-col">
-                <div class="my-1">
-                    <input class="w-full p-2 border border-gray-400 rounded" type="text">
+        <div class="flex flex-col overflow-y-scroll max-h-[11rem]">
+                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
                 </div>
-                <div class="my-1">
-                    <textarea class="w-full p-2 border border-gray-400 rounded" rows="4"></textarea>
+                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
                 </div>
+                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
                 </div>
-            </div>
-
-            <div class="flex flex-col w-[10%] p-2">
-                <button class="flex items-center justify-center bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1 my-.5  py-2 text-sm">
-                Tipo
-                </button>
-                <button class="flex flex-1  justify-center items-center my-1 bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1.5 text-sm">
-                Añadir
-                </button>
-            </div>
-
+                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
+                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
+                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
+                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
+                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
+                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                </div>
         </div>
-    
-    </div>
+      
+
+     </div>
+</div>
+     
+
+
+
+
+
+
 
 
 
