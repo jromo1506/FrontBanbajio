@@ -6,6 +6,7 @@ import { SwalAlertService } from '../../services/swal-alert.service';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   imports: [ListadoComponent,LoaderComponent,ModalComponent,ReactiveFormsModule,CommonModule],
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   productos: any[] = []; // lista de productos que se pueden agregar
 
-  constructor(private swalAlert: SwalAlertService, private fb: FormBuilder) {
+  constructor(private swalAlert: SwalAlertService, private fb: FormBuilder,private router:Router) {
     this.form = this.fb.group({
       clave: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -46,5 +47,10 @@ export class HomeComponent implements OnInit {
     if (this.form.valid) {
       console.log(this.form.value);
     }
+  }
+
+
+  irEdit(){
+    this.router.navigate(["/edit"])
   }
 }
