@@ -1,1 +1,112 @@
-<p>proveedores works!</p>
+<div class="w-[80vw] mt-5">
+   <h1 class="text-2xl">Marketplace de proveedores</h1>
+
+</div>
+
+
+
+
+  <div class="inline-flex border-1 border border-gray-300 bg-gray-200 my-5 flex  items-center p-4">
+    <div class="flex  text-sm">
+      
+      <div class="flex items-center ml-1">
+        <div>Tipo</div>
+        <div class="ml-3">
+          <select class="w-[15rem] bg-white">
+            <option value="">Todos</option>
+            <option value="Electrónico">Electrónico</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Alimentos">Alimentos</option>
+            <option value="Deporte">Deporte</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex  text-sm">
+      
+      <div class="flex items-center ml-5">
+        <div>Estado</div>
+        <div class="ml-3">
+          <select class="w-[10rem] bg-white">
+            <option value="Activo">Todos</option>
+            <option value="Inactivo">Electrónico</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="flex items-center justify-between">
+        
+        <div class="ml-5">
+          <input class="w-[18rem]" type="text" placeholder="Buscar por nombre o SKU">
+        </div>
+      </div>
+
+    <div>
+      <button class= "mx-2 bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1.5 text-sm ">
+        <i class="fa-solid fa-magnifying-glass"></i> Buscar
+      </button>
+    </div>
+  </div>
+
+
+<div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+        <thead class=" bg-gray-300 text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+            <tr>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Proveedor
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Producto
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    SKU Prod. Prov.
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Precio Prov.
+                </th>
+                 <th scope="col" class="px-6 py-3 font-medium">
+                    Precio Mercado
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Ganancia neta
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Accion
+                </th>
+             
+             
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-neutral-primary border-b border-default">
+                <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                    Apple MacBook Pro 17"
+                </th>
+                <td class="px-6 py-4">
+                    Silver
+                </td>
+                <td class="px-6 py-4">
+                    Laptop
+                </td>
+                <td class="px-6 py-4">
+                    $2999
+                </td>
+                <td class="px-6 py-4">
+                    231
+                </td>
+                  <td class="px-6 py-4">
+                    231
+                </td>
+                  <td class="px-6 py-4">
+                    231
+                </td>
+            </tr>
+          
+        </tbody>
+    </table>
+</div>

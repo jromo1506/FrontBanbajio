@@ -90,7 +90,8 @@
             <select
               class="w-full border border-1 bg-gray-100"
               formControlName="tipo">
-              <option *ngFor="let tipo of categorias" [value]="tipo.idTipoProducto">{{ tipo.nombre }}</option>
+                <option [ngValue]="null">Selecciona un tipo</option>
+              <option *ngFor="let tipo of categorias" [ngValue]="tipo.idTipoProducto">{{ tipo.nombre }}</option>
             </select>
           </div>
           <div>

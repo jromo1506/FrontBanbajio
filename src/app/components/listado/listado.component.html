@@ -1,34 +1,11 @@
-  <div class="border-1 border border-gray-300 bg-gray-200 my-5 flex justify-between items-center p-4">
-    <div class="flex flex-1 text-sm">
-      <div class="flex items-center justify-between">
-        <div>Producto</div>
-        <div class="ml-3">
-          <input class="w-[10rem]" type="text" placeholder="Buscar por nombre o SKU">
-        </div>
-      </div>
-      <div class="flex items-center ml-5">
-        <div>Tipo</div>
-        <div class="ml-3">
-          <select class="w-[30rem]">
-            <option value="">Todos</option>
-            <option value="Electrónico">Electrónico</option>
-            <option value="Hogar">Hogar</option>
-            <option value="Ropa">Ropa</option>
-            <option value="Alimentos">Alimentos</option>
-            <option value="Deporte">Deporte</option>
-          </select>
-        </div>
-      </div>
-    </div>
 
-    <div>
-      <button class="bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1.5 text-sm w-[6rem]">
-        <i class="fa-solid fa-magnifying-glass"></i> Buscar
-      </button>
-    </div>
+
+<div class="my-4 mt-5">
+  <h1 class="text-2xl">Lista de productos</h1>
+  <div>
+    <p>Lista de precio de fabricante de productos disponibles</p>
   </div>
-
-
+</div>
 
 <div class="w-100 relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
   <table class="w-full text-sm text-left rtl:text-right text-body">
@@ -36,7 +13,7 @@
       <tr>
         <th class="px-6 py-3 font-medium">Producto</th>
         <th class="px-6 py-3 font-medium">SKU</th>
-        <th class="px-6 py-3 font-medium">Precio mercado</th>
+        <th class="px-6 py-3 font-medium">Precio fabricante</th>
         <th class="px-6 py-3 font-medium">Tipo</th>
         <th class="px-6 py-3 font-medium">Estatus</th>
         <th class="px-6 py-3 font-medium"></th>
@@ -44,24 +21,25 @@
     </thead>
 
     <tbody>
-      <tr
+      <tr 
         *ngFor="let item of productos | paginate: { itemsPerPage: pageSize, currentPage: page }"
-        class="bg-neutral-primary border-b border-default"
+        class="bg-neutral-primary border-b border-default hover:bg-slate-200 cursor-pointer"
       >
         <th class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-          {{ item.nombre }}
+          {{ item.nombreProducto }}
         </th>
 
         <td class="px-6 py-4">{{ item.clave }}</td>
         <td class="px-6 py-4">${{ item.precio }}</td>
-        <td class="px-6 py-4">{{ item.tipoProucto }}</td>
-        <td class="px-6 py-4">{{ item.esActivo }}</td>
+        <td class="px-6 py-4">{{ item.tipoProducto }}</td>
+        <td class="px-6 py-4">{{item.esActivo ? 'Activo' : 'Inactivo'}}
+        </td>
 
         <td class="py-4 flex justify-center text-lg text-gray-500 gap-3">
-          <button (click)="editarProducto(item)">
+          <button (click)="showVincular(item.idProducto)">
             <i class="fa-solid fa-pen-to-square transition-transform hover:scale-125 hover:text-purple-600"></i>
           </button>
-          <button (click)="eliminarProducto(item)">
+          <button (click)="eliminarProducto(item.idProducto)">
             <i class="fa-solid fa-square-xmark transition-transform hover:scale-125 hover:text-red-600"></i>
           </button>
         </td>
@@ -78,6 +56,55 @@
     (pageChange)="page = $event">
   </pagination-controls>
 </div>
+
+
+
+<app-modal
+  [open]="showVinc"
+  title="Catalogar producto de proveedor"
+  (close)="showVinc = false">
+  <div>
+    <form [formGroup]="formVinc" (ngSubmit)="vincular()" class="flex flex-col gap-3">
+
+  <div>Seleccionar proveedor</div>
+  <!-- Proveedor -->
+  <select formControlName="idProveedor">
+    <option value="">Selecciona proveedor</option>
+    <option *ngFor="let pr of proveedores" [value]="pr.idProveedor">
+      {{ pr.nombre }}
+    </option>
+  </select>
+<div>Info. Articulo del producto</div>
+  <!-- Clave proveedor -->
+  <input
+    type="text"
+    placeholder="Clave del proveedor"
+    formControlName="claveProveedor"
+  />
+
+  <!-- Costo -->
+  <input
+    type="number"
+    step="0.01"
+    placeholder="Costo"
+    formControlName="costo"
+  />
+
+  <button class="bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1.5 text-sm w-[6rem]" type="submit" >
+    Guardar
+  </button>
+
+</form>
+  </div>
+
+
+</app-modal>
+
+
+
+
+
+
 
 <app-modal
   [open]="showModal"

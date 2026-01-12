@@ -1,35 +1,24 @@
-<div class="w-full bg-purple-600 p-4 flex justify-between">
-  <div class="flex flex-1 ">
-    <div class="w-[15rem]">
-    <img src="/banbajio.png" class="w-[10rem]">
+<div class="app-wrapper flex flex-col min-h-screen">
+  <div class="w-full bg-purple-600 p-4 flex justify-between">
+    <div class="flex flex-1">
+      <div class="w-[15rem]">
+        <img src="/banbajio.png" class="w-[10rem]">
+      </div>
+    </div>
 
+    <div class="flex justify-around w-[20%] items-center text-bold text-white">
+      <div (click)="irListado()" class="cursor-pointer">
+        Catalogo
+      </div>
+      <div (click)="irCatalogo()" class="cursor-pointer">
+        Marketplace
+      </div>
     </div>
-    <!--
-    <div class="flex justify-around  items-center text-bold text-white">
-        <div class="mr-2">
-          Listado de productos
-        </div>
-        <div class="mx-2">
-          Catalogo de proveedores
-        </div>
-        
- 
-    </div>
-    -->
   </div>
 
-  <div class="flex justify-around w-[20%] items-center text-bold text-white">
-    <div (click)="irListado()" class="cursor-pointer">
-         Listado de productos
-    </div>
-    <div (click)="irCatalogo()" class="cursor-pointer">
-          Catalogo de proveedores
-    </div>
-
+  <div class="flex-1 flex justify-center">
+    <router-outlet></router-outlet>
   </div>
-</div>
 
-
-<div class="flex justify-center">
-  <router-outlet></router-outlet>
+  <app-footer></app-footer>
 </div>

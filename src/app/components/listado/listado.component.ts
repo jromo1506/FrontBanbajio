@@ -5,6 +5,7 @@ import { SwalAlertService } from '../../services/swal-alert.service';
 import { ModalComponent } from '../modal/modal.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductosService } from '../../services/productos.service';
+import { ProveedoresService } from '../../services/proveedores.service';
 
 @Component({
   selector: 'app-listado',
@@ -15,13 +16,19 @@ import { ProductosService } from '../../services/productos.service';
 export class ListadoComponent implements OnInit{
 
   form: FormGroup;
+   formVinc: FormGroup;
   page = 1;
   pageSize = 5;
   showModal = false;
 
-   @Input() productos:any[]=[];
 
-  constructor(private swalAlert: SwalAlertService, private fb: FormBuilder,private productoService:ProductosService) {
+  showVinc = false;
+
+
+   @Input() productos:any[]=[];
+   proveedores:any[]=[];
+
+  constructor(private swalAlert: SwalAlertService, private fb: FormBuilder,private productoService:ProductosService,private proveedorService:ProveedoresService) {
      this.form = this.fb.group({
       clave: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -29,9 +36,25 @@ export class ListadoComponent implements OnInit{
       tipo: ['', Validators.required],
       estatus: ['', Validators.required]
     });
+
+     this.formVinc = this.fb.group({
+      idProducto: ['', Validators.required],
+      idProveedor: ['', Validators.required],
+      claveProveedor: ['', [
+        Validators.required,
+        Validators.maxLength(50)
+      ]],
+      costo: ['', [
+        Validators.required,
+        Validators.min(0)
+      ]]
+    });
   }
+
+  
   ngOnInit(): void {
     this.obtenerProductos();
+    this.obtenerProvs();
   }
 
   obtenerProductos(){
@@ -42,6 +65,37 @@ export class ListadoComponent implements OnInit{
 
     });
   }
+
+  obtenerProvs(){
+    this.proveedorService.getProveedores().subscribe(res=>{
+      this.proveedores =res;
+
+
+    },err =>{
+      console.log(err);
+    });
+  }
+
+
+  showVincular(id:string){
+    this.formVinc.patchValue({idProducto:id});
+    this.showVinc=true
+  }
+
+  vincular(){
+    
+
+    const body = {
+      producto: { idProducto: this.formVinc.value.idProducto },
+      proveedor: { idProveedor: this.formVinc.value.idProveedor },
+      claveProveedor: this.formVinc.value.claveProveedor,
+      costo: this.formVinc.value.costo
+    };
+
+    console.log(body);
+    // this.productoProveedorService.crear(body).subscribe(...)
+  }
+  
 
   editarProducto(producto: any) {
     this.form.patchValue({
@@ -54,9 +108,11 @@ export class ListadoComponent implements OnInit{
     this.showModal = true;
   }
 
-  eliminarProducto(producto: any) {
-    console.log(producto);
-    this.swalAlert.confirm("¿Estas seguro?", "Esta acción no puede deshacerse");
+  eliminarProducto(id:string) {
+    this.productoService.deleteProducto(id).subscribe(res=>{
+      this.swalAlert.success("Exito","Producto eliminado");
+      this.obtenerProductos();
+    });
   }
 
   submit() {

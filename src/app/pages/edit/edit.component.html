@@ -1,9 +1,18 @@
     <div class="w-[80vw] mt-5">
-    <h1 class="text-xl font-semibold">Configuración</h1>
+    <h1 class="text-2xl font-semibold">Añadir / Eliminar</h1>
     </div>
 
-   <div class="flex border-gray-300 bg-gray-200 my-5 rounded-md h-[14rem]">
 
+
+    <div class="mt-5">
+  <h1 class="text-xl font-semibold">Configuracion de proveedores</h1>
+  <div>
+    <p>En esta sección puedes agregar nuevos proveedores para tu sistema, incluyendo su nombre y una breve descripción de sus servicios.</p>
+  </div>
+</div>
+
+   <div class="flex border-gray-300 bg-gray-200 my-5 rounded-md h-[14rem]">
+    
   <div class="w-[30%] border-gray-300 bg-gray-200 rounded-md">
     <h1 class="pt-2 px-2">Añadir Proveedor</h1>
 
@@ -46,6 +55,8 @@
   </div>
 
 
+  
+
 
 
      <div class="p-2 flex-1 border-l border-1 border-gray-300    ">
@@ -53,8 +64,16 @@
             <h1 class="pt-2 ">Lista de proveedores</h1>
         </div>
         <div class="flex flex-col overflow-y-scroll max-h-[11rem]">
-                <div *ngFor="let prov of proveedores" class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                <div *ngFor="let prov of proveedores" class="flex rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                   <div class="mr-2 text-gray-400 hover:scale-125 hover:text-red-700 cursor-pointer">
+                      <i class="fa-solid fa-circle-xmark" (click)="eliminaProv(prov.idProveedor)"></i>
+                  </div>
+                  <div>
                     {{prov.nombre}} - {{prov.descripcion}}
+
+                  </div> 
+                  
+                  
                 </div>
                 
         </div>
@@ -66,6 +85,14 @@
 
 
 
+
+
+<div>
+  <h1 class="text-xl font-semibold">Configuracion de categorias</h1>
+  <div>
+    <p>En esta sección puedes crear nuevas categorías de  productos para organizar y clasificar mejor el inventario.</p>
+  </div>
+</div>
 
 
 
@@ -120,8 +147,15 @@
             <h1 class="pt-2 ">Categoria de proveedores</h1>
         </div>
         <div class="flex flex-col overflow-y-scroll max-h-[11rem]">
-                <div *ngFor="let cat of categorias" class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    {{cat.nombre}} - {{cat.descripcion}}
+                <div *ngFor="let cat of categorias" class="flex items-center rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                  <div class="mr-2 text-gray-400 hover:scale-125 hover:text-red-700 cursor-pointer">
+                      <i class="fa-solid fa-circle-xmark" (click)="eliminaCateg(cat.idTipoProducto)"></i>
+                  </div>
+                  <div>
+                        {{cat.nombre}} - {{cat.descripcion}}
+                  </div>
+               
+                  
                 </div>
             
         </div>

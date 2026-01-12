@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
       clave: ['', Validators.required],
       nombre: ['', Validators.required],
       precio: [0, [Validators.required]],
-      tipo: ['', Validators.required],
+      tipo: [0, Validators.required],
       estatus: ['', Validators.required]
     });
   }
@@ -79,10 +79,22 @@ export class HomeComponent implements OnInit {
 
   agregarProducto() {
     if (this.form.valid) {
+
+      const payload = {
+      ...this.form.value,
+      idTipoProducto: Number(this.form.value.tipo), // convierte string a number
+      clave: this.form.value.clave,
+      nombre: this.form.value.nombre,
+      precio: this.form.value.precio,
+      estatus: this.form.value.estatus
+    };
+
     // limpia el formulario
       this.showModal = false;
       console.log(this.form.value);
-      this.productoService.crearProducto(this.form.value).subscribe(res=>{
+
+      
+      this.productoService.crearProducto(payload).subscribe(res=>{
         
          this.obtenerProductos();
         this.swalAlert.success("Producto agregado", "El producto se ha agregado correctamente");

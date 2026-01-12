@@ -93,5 +93,24 @@ export class EditComponent implements OnInit{
   
     this.tipoForm.reset();
   }
+
+
+
+  eliminaProv(id:string){
+    this.proveedorService.deleteProveedor(id).subscribe(res=>{
+        this.swalAlert.success("Hecho","Proveedor eliminado");
+        this.obtenerProvs();
+    });
+  }
+
+  
+  eliminaCateg(id:string){
+    this.tipoService.deleteTipo(id).subscribe(res=>{
+        this.swalAlert.success("Hecho","Categoria eliminada");
+        this.obtenerTipos();
+    });
+  }
+
+
 }
 
