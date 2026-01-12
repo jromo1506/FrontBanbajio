@@ -53,33 +53,10 @@
             <h1 class="pt-2 ">Lista de proveedores</h1>
         </div>
         <div class="flex flex-col overflow-y-scroll max-h-[11rem]">
-                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                <div *ngFor="let prov of proveedores" class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    {{prov.nombre}} - {{prov.descripcion}}
                 </div>
-                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
+                
         </div>
       
 
@@ -98,7 +75,7 @@
     <h1 class="pt-2 px-2">Añadir Categoria</h1>
 
     <form
-      [formGroup]="proveedorForm"
+      [formGroup]="tipoForm"
       (ngSubmit)="confirmarCateg()"
       class="flex justify-between"
     >
@@ -143,33 +120,10 @@
             <h1 class="pt-2 ">Categoria de proveedores</h1>
         </div>
         <div class="flex flex-col overflow-y-scroll max-h-[11rem]">
-                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
+                <div *ngFor="let cat of categorias" class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
+                    {{cat.nombre}} - {{cat.descripcion}}
                 </div>
-                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
-                  <div class="rounded-sm bg-gray-100 border border-1 border-gray-300 p-2 text-xs w-full">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, commodi.
-                </div>
+            
         </div>
       
 

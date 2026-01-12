@@ -3,7 +3,7 @@
 <div class="w-[80vw]">
 
 
-  <app-listado ></app-listado>
+  <app-listado [productos]="productos"></app-listado>
 
   <div class="flex justify-end">
     <div class="my-1 py-4">
@@ -15,6 +15,7 @@
       <button (click)="showModal = true" class="bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1.5 text-sm w-[10rem]">
         <i class="fa-solid fa-plus"></i> Agregar producto
       </button>
+      
     </div>
   </div>
 </div>
@@ -66,7 +67,7 @@
 
       <!-- Precio -->
       <div class="flex flex-col">
-        <div>Precio</div>
+        <div>Precio mercado</div>
         <div>
           <input
             class="w-full border border-1 bg-gray-100"
@@ -82,30 +83,28 @@
           </small>
         </div>
       </div>
+      <div class="flex">
+        <div class="flex flex-col w-[50%]">
+          <div>Tipo</div>
+          <div>
+            <select
+              class="w-full border border-1 bg-gray-100"
+              formControlName="tipo">
+              <option *ngFor="let tipo of categorias" [value]="tipo.idTipoProducto">{{ tipo.nombre }}</option>
+            </select>
+          </div>
+          <div>
+            <small class="text-red-800"
+              *ngIf="form.get('tipo')?.invalid && form.get('tipo')?.touched">
+              Tipo requerido
+            </small>
+          </div>
+        </div>
 
-      <!-- Tipo -->
-      <div class="flex flex-col">
-        <div>Tipo</div>
-        <div>
-          <select
-            class="w-full border border-1 bg-gray-100"
-            formControlName="tipo">
-            <option value="">Selecciona una opción</option>
-            <option value="Electrónico">Electrónico</option>
-            <option value="Hogar">Hogar</option>
-            <option value="Ropa">Ropa</option>
-            <option value="Alimentos">Alimentos</option>
-            <option value="Deporte">Deporte</option>
-          </select>
-        </div>
-        <div>
-          <small class="text-red-800"
-            *ngIf="form.get('tipo')?.invalid && form.get('tipo')?.touched">
-            Tipo requerido
-          </small>
-        </div>
+
       </div>
-
+      <!-- Tipo -->
+     
       <!-- Estatus -->
       <div class="flex flex-col">
         <div>Estatus</div>
@@ -132,7 +131,39 @@
           Agregar producto
         </button>
       </div>
+     x
 
     </form>
   </div>
 </app-modal>
+
+
+
+<app-modal
+  [open]="showProveedores"
+  title="Lista de proveedores"
+  (close)="showProveedores = false">
+
+  <div class="w-full max-h-[20rem]   overflow-y-auto">
+    <div
+      *ngFor="let prov of proveedores"
+      class="flex items-center gap-2 border my-1 bg-gray-200 border-gray-200 p-2">
+
+      <input
+        type="checkbox"
+        [checked]="proveedoresSeleccionados.includes(prov.idProveedor)"
+        (change)="toggleProveedor(prov.idProveedor, $event)"
+      />
+
+      <span>{{ prov.nombre }}</span>
+    </div>
+  </div>
+
+  <button
+    class="mt-4 px-4 py-2 bg-blue-600 text-white"
+    (click)="guardarRelacion()">
+    Guardar
+  </button>
+
+</app-modal>
+
