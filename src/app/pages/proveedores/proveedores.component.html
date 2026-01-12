@@ -83,21 +83,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="bg-neutral-primary border-b border-default">
+            <tr *ngFor = "let arti of catalogo " lass="bg-neutral-primary border-b border-default">
                 <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                    Apple MacBook Pro 17"
+                    {{arti.nombreProveedor}}
                 </th>
                 <td class="px-6 py-4">
-                    Silver
+                    {{arti.nombreProducto}}
                 </td>
                 <td class="px-6 py-4">
-                    Laptop
+                    {{arti.claveProveedor}}
                 </td>
                 <td class="px-6 py-4">
-                    $2999
+                    {{arti.costo}}
                 </td>
                 <td class="px-6 py-4">
-                    231
+                    {{arti.precio}}
                 </td>
                   <td class="px-6 py-4">
                     231

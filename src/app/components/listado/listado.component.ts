@@ -6,6 +6,7 @@ import { ModalComponent } from '../modal/modal.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductosService } from '../../services/productos.service';
 import { ProveedoresService } from '../../services/proveedores.service';
+import { ProductoProveedorService } from '../../services/producto-proveedor.service';
 
 @Component({
   selector: 'app-listado',
@@ -28,7 +29,7 @@ export class ListadoComponent implements OnInit{
    @Input() productos:any[]=[];
    proveedores:any[]=[];
 
-  constructor(private swalAlert: SwalAlertService, private fb: FormBuilder,private productoService:ProductosService,private proveedorService:ProveedoresService) {
+  constructor(private swalAlert: SwalAlertService, private fb: FormBuilder,private productoService:ProductosService,private proveedorService:ProveedoresService,private productoProveedorService:ProductoProveedorService) {
      this.form = this.fb.group({
       clave: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -44,7 +45,7 @@ export class ListadoComponent implements OnInit{
         Validators.required,
         Validators.maxLength(50)
       ]],
-      costo: ['', [
+      costo: [0, [
         Validators.required,
         Validators.min(0)
       ]]
@@ -86,13 +87,22 @@ export class ListadoComponent implements OnInit{
     
 
     const body = {
-      producto: { idProducto: this.formVinc.value.idProducto },
-      proveedor: { idProveedor: this.formVinc.value.idProveedor },
+      idProducto:this.formVinc.value.idProducto ,
+      idProveedor:  Number(this.formVinc.value.idProveedor) ,
       claveProveedor: this.formVinc.value.claveProveedor,
       costo: this.formVinc.value.costo
     };
 
     console.log(body);
+
+    this.productoProveedorService.createProductoProveedor(body.idProducto,body.idProveedor,body.claveProveedor,body.costo).subscribe(
+      res=>{
+        this.swalAlert.success("Hecho","Articulo publicado");
+      },
+      err=>{
+        console.log(err);
+      }
+    );
     // this.productoProveedorService.crear(body).subscribe(...)
   }
   
@@ -106,6 +116,8 @@ export class ListadoComponent implements OnInit{
       estatus: producto.estatus
     });
     this.showModal = true;
+
+  
   }
 
   eliminarProducto(id:string) {
