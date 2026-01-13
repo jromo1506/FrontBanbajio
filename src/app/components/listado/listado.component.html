@@ -36,8 +36,11 @@
         </td>
 
         <td class="py-4 flex justify-center text-lg text-gray-500 gap-3">
-          <button (click)="showVincular(item.idProducto)">
+            <button (click)="editarProducto(item)">
             <i class="fa-solid fa-pen-to-square transition-transform hover:scale-125 hover:text-purple-600"></i>
+          </button>
+          <button (click)="showVincular(item.idProducto)">
+            <i class="fa-solid fa-up-right-from-square transition-transform hover:scale-125 hover:text-purple-600"></i>
           </button>
           <button (click)="eliminarProducto(item.idProducto)">
             <i class="fa-solid fa-square-xmark transition-transform hover:scale-125 hover:text-red-600"></i>
@@ -105,10 +108,9 @@
 
 
 
-
 <app-modal
   [open]="showModal"
-  title="Modificar producto"
+  title="Detalle de producto"
   (close)="showModal = false">
   <div>
     <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
@@ -153,13 +155,13 @@
 
       <!-- Precio -->
       <div class="flex flex-col">
-        <div>Precio</div>
+        <div>Precio mercado</div>
         <div>
           <input
             class="w-full border border-1 bg-gray-100"
             type="number"
             formControlName="precio"
-            placeholder="Precio"
+            placeholder="Precio del producto"
           />
         </div>
         <div>
@@ -169,30 +171,29 @@
           </small>
         </div>
       </div>
+      <div class="flex">
+        <div class="flex flex-col w-[50%]">
+          <div>Tipo</div>
+          <div>
+            <select
+              class="w-full border border-1 bg-gray-100"
+              formControlName="tipo">
+                <option [ngValue]="null">Selecciona un tipo</option>
+              <option *ngFor="let tipo of categorias" [ngValue]="tipo.idTipoProducto">{{ tipo.nombre }}</option>
+            </select>
+          </div>
+          <div>
+            <small class="text-red-800"
+              *ngIf="form.get('tipo')?.invalid && form.get('tipo')?.touched">
+              Tipo requerido
+            </small>
+          </div>
+        </div>
 
-      <!-- Tipo -->
-      <div class="flex flex-col">
-        <div>Tipo</div>
-        <div>
-          <select
-            class="w-full border border-1 bg-gray-100"
-            formControlName="tipo">
-            <option value="">Selecciona una opción</option>
-            <option value="Electrónico">Electrónico</option>
-            <option value="Hogar">Hogar</option>
-            <option value="Ropa">Ropa</option>
-            <option value="Alimentos">Alimentos</option>
-            <option value="Deporte">Deporte</option>
-          </select>
-        </div>
-        <div>
-          <small class="text-red-800"
-            *ngIf="form.get('tipo')?.invalid && form.get('tipo')?.touched">
-            Tipo requerido
-          </small>
-        </div>
+
       </div>
-
+      <!-- Tipo -->
+     
       <!-- Estatus -->
       <div class="flex flex-col">
         <div>Estatus</div>
@@ -200,9 +201,9 @@
           <select
             class="w-full border border-1 bg-gray-100"
             formControlName="estatus">
-            <option value="">Selecciona una opción</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
+  <option [ngValue]="null">Selecciona una opción</option>
+  <option [ngValue]="true">Activo</option>
+  <option [ngValue]="false">Inactivo</option>
           </select>
         </div>
         <div>
@@ -213,12 +214,13 @@
         </div>
       </div>
 
-      <!-- Botones -->
+      <!-- Botón -->
       <div class="flex justify-end gap-2 p-4 border-t">
         <button class="bg-purple-600 text-white px-2 hover:bg-purple-800" type="submit">
-          Guardar producto
+          Agregar producto
         </button>
       </div>
+     x
 
     </form>
   </div>

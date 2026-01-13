@@ -21,6 +21,10 @@ export class ProductosService {
     return this.http.post(this.api.url + "/productos",prod);
   }
 
+  editarProveedor(id:number,prod:any):Observable<any>{
+    return this.http.put(this.api.url + "/productos/"+id,prod);
+  }
+
   deleteProducto(id:string):Observable<any>{
     return this.http.delete(this.api.url + "/productos/eliminaRelaciones/"+id);
   }

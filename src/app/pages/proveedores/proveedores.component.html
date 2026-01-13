@@ -5,52 +5,58 @@
 
 
 
+<form [formGroup]="formFiltros" (ngSubmit)="buscar()"
+  class="inline-flex border border-gray-300 bg-gray-200 my-5 items-center p-4 text-sm">
 
-  <div class="inline-flex border-1 border border-gray-300 bg-gray-200 my-5 flex  items-center p-4">
-    <div class="flex  text-sm">
-      
-      <div class="flex items-center ml-1">
-        <div>Tipo</div>
-        <div class="ml-3">
-          <select class="w-[15rem] bg-white">
-            <option value="">Todos</option>
-            <option value="Electrónico">Electrónico</option>
-            <option value="Hogar">Hogar</option>
-            <option value="Ropa">Ropa</option>
-            <option value="Alimentos">Alimentos</option>
-            <option value="Deporte">Deporte</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="flex  text-sm">
-      
-      <div class="flex items-center ml-5">
-        <div>Estado</div>
-        <div class="ml-3">
-          <select class="w-[10rem] bg-white">
-            <option value="Activo">Todos</option>
-            <option value="Inactivo">Electrónico</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    
-    <div class="flex items-center justify-between">
-        
-        <div class="ml-5">
-          <input class="w-[18rem]" type="text" placeholder="Buscar por nombre o SKU">
-        </div>
-      </div>
-
-    <div>
-      <button class= "mx-2 bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1.5 text-sm ">
-        <i class="fa-solid fa-magnifying-glass"></i> Buscar
-      </button>
+  <!-- Tipo -->
+  <div class="flex items-center ml-1">
+    <div>Tipo</div>
+    <div class="ml-3">
+      <select
+        class="w-[15rem] border bg-gray-100"
+        formControlName="idTipoProducto">
+        <option [ngValue]="null">Selecciona un tipo</option>
+        <option *ngFor="let tipo of categorias"
+                [ngValue]="tipo.idTipoProducto">
+          {{ tipo.nombre }}
+        </option>
+      </select>
     </div>
   </div>
+
+  <!-- Estado -->
+  <div class="flex items-center ml-5">
+    <div>Estado</div>
+    <div class="ml-3">
+      <select
+        class="w-[10rem] bg-white"
+        formControlName="esActivo">
+        <option [ngValue]="null">Todos</option>
+        <option [ngValue]="true">Activo</option>
+        <option [ngValue]="false">Inactivo</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Búsqueda -->
+  <div class="flex items-center ml-5">
+    <input
+      class="w-[18rem]"
+      type="text"
+      formControlName="busqueda"
+      placeholder="Buscar por nombre o SKU">
+  </div>
+
+  <!-- Botón -->
+  <div class="ml-4">
+    <button
+      type="submit"
+      class="bg-purple-600 rounded-sm hover:bg-purple-700 text-white p-1.5 text-sm">
+      <i class="fa-solid fa-magnifying-glass"></i> Buscar
+    </button>
+  </div>
+</form>
+
 
 
 <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
@@ -66,16 +72,16 @@
                 <th scope="col" class="px-6 py-3 font-medium">
                     SKU Prod. Prov.
                 </th>
-                <th scope="col" class="px-6 py-3 font-medium">
+                <th scope="col" class="px-6 py-3 font-medium text-center">
                     Precio Prov.
                 </th>
-                 <th scope="col" class="px-6 py-3 font-medium">
+                 <th scope="col" class="px-6 py-3 font-medium text-center">
                     Precio Mercado
                 </th>
-                <th scope="col" class="px-6 py-3 font-medium">
-                    Ganancia neta
+                <th scope="col" class="px-6 py-3 font-medium text-center">
+                    Utilidad neta
                 </th>
-                <th scope="col" class="px-6 py-3 font-medium">
+                <th scope="col" class="px-6 py-3 font-medium text-center">
                     Accion
                 </th>
              
@@ -83,7 +89,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor = "let arti of catalogo " lass="bg-neutral-primary border-b border-default">
+            <tr *ngFor="let arti of catalogo | paginate: { itemsPerPage: 5, currentPage: page }" lass="bg-neutral-primary border-b border-default">
                 <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
                     {{arti.nombreProveedor}}
                 </th>
@@ -93,20 +99,29 @@
                 <td class="px-6 py-4">
                     {{arti.claveProveedor}}
                 </td>
-                <td class="px-6 py-4">
-                    {{arti.costo}}
+                <td class="px-6 py- text-center text-center">
+                    {{arti.costo | currency:'MXN':'symbol':'1.2-2'}}
                 </td>
-                <td class="px-6 py-4">
-                    {{arti.precio}}
+                <td class="px-6 py-4 text-center text-center">
+                    {{arti.precio | currency:'MXN':'symbol':'1.2-2'}}
                 </td>
-                  <td class="px-6 py-4">
-                    231
-                </td>
-                  <td class="px-6 py-4">
-                    231
-                </td>
+                  <td class="px-6 py-4 text-center">
+                     {{ getUtilidad(arti) | currency:'MXN':'symbol':'1.2-2' }}
+                  </td>
+                  <td class="py-4 flex justify-center text-lg text-gray-500 gap-3">
+                      
+                      <button  (click)="eliminarRelacion(arti.idProducto,arti.idProductoProveedor)">
+                        <i class="fa-solid fa-square-xmark transition-transform hover:scale-125 hover:text-red-600"></i>
+                      </button>
+                  </td>
+                
             </tr>
           
         </tbody>
     </table>
 </div>
+<pagination-controls
+  (pageChange)="page = $event"
+  previousLabel="Anterior"
+  nextLabel="Siguiente">
+</pagination-controls>

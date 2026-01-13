@@ -26,4 +26,34 @@ export class ProductoProveedorService {
       return this.http.get(this.api.url + "/catalogo");
     }
 
+    deletePP(idProducto:string,idProveedor:string){
+       return this.http.delete(this.api.url +`/productos/${idProducto}/proveedores/${idProveedor}`);
+    }
+
+
+filtros(filtros: any): Observable<any> {
+
+  const params: any = {};
+
+  if (filtros.idTipoProducto !== null && filtros.idTipoProducto !== undefined) {
+    params.idTipoProducto = filtros.idTipoProducto;
+  }
+
+  if (filtros.esActivo !== null && filtros.esActivo !== undefined) {
+    params.esActivo = filtros.esActivo ? 1 : 0;
+  }
+
+  if (filtros.busqueda?.trim()) {
+    params.busqueda = filtros.busqueda.trim();
+  }
+  // ⬆️ si está vacío NO se manda
+  console.log(params);
+
+
+  return this.http.get(this.api.url + '/catalogo/filtros', { params });
+}
+
+
+
+
 }

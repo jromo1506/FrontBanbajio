@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ProductosService } from '../../services/productos.service';
 import { ProveedoresService } from '../../services/proveedores.service';
 import { ProductoProveedorService } from '../../services/producto-proveedor.service';
+import { TiposService } from '../../services/tipos.service';
 
 @Component({
   selector: 'app-listado',
@@ -21,15 +22,16 @@ export class ListadoComponent implements OnInit{
   page = 1;
   pageSize = 5;
   showModal = false;
-
+ idMod=0;
 
   showVinc = false;
 
 
    @Input() productos:any[]=[];
    proveedores:any[]=[];
+   categorias:any[]=[];
 
-  constructor(private swalAlert: SwalAlertService, private fb: FormBuilder,private productoService:ProductosService,private proveedorService:ProveedoresService,private productoProveedorService:ProductoProveedorService) {
+  constructor(private tipoService:TiposService,private swalAlert: SwalAlertService, private fb: FormBuilder,private productoService:ProductosService,private proveedorService:ProveedoresService,private productoProveedorService:ProductoProveedorService) {
      this.form = this.fb.group({
       clave: ['', Validators.required],
       nombre: ['', Validators.required],
@@ -56,6 +58,16 @@ export class ListadoComponent implements OnInit{
   ngOnInit(): void {
     this.obtenerProductos();
     this.obtenerProvs();
+     this.obtenerTipos();
+  }
+
+    obtenerTipos(){
+    this.tipoService.getTipos().subscribe(res=>{
+      this.categorias = res;
+   
+    },err =>{
+      console.log(err);
+    });
   }
 
   obtenerProductos(){
@@ -108,6 +120,7 @@ export class ListadoComponent implements OnInit{
   
 
   editarProducto(producto: any) {
+    this.idMod=producto.idProducto;
     this.form.patchValue({
       clave: producto.clave,
       nombre: producto.nombre,
@@ -129,7 +142,20 @@ export class ListadoComponent implements OnInit{
 
   submit() {
     if (this.form.valid) {
-      console.log(this.form.value);
+    
+      const payload = {
+      ...this.form.value,
+      idTipoProducto: Number(this.form.value.tipo), // convierte string a number
+      clave: this.form.value.clave,
+      nombre: this.form.value.nombre,
+      precio: this.form.value.precio,
+      estatus: this.form.value.estatus
+    };
+      console.log(payload);
+      this.productoService.editarProveedor(this.idMod,payload).subscribe(res=>{
+        this.swalAlert.success("Hecho","Producto modificado");
+        this.obtenerProductos();
+      });
     }
   }
 }

@@ -113,9 +113,9 @@
           <select
             class="w-full border border-1 bg-gray-100"
             formControlName="estatus">
-            <option value="">Selecciona una opción</option>
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
+  <option [ngValue]="null">Selecciona una opción</option>
+  <option [ngValue]="true">Activo</option>
+  <option [ngValue]="false">Inactivo</option>
           </select>
         </div>
         <div>
